@@ -1,0 +1,15 @@
+{
+  "name": "node-qt-napi",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./lib/qt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gustav Hansen",
+  "license": "MIT",
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "*"
+  }
+}
