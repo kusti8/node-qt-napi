@@ -22,7 +22,8 @@ Napi::Object QMainWindowWrap::Init(Napi::Env env, Napi::Object exports)
         InstanceMethod("setFocusPolicy", &QMainWindowWrap::setFocusPolicy),
         InstanceMethod("move", &QMainWindowWrap::move),
         InstanceMethod("x", &QMainWindowWrap::x),
-        InstanceMethod("y", &QMainWindowWrap::y)
+        InstanceMethod("y", &QMainWindowWrap::y),
+        InstanceMethod("setStyleSheet", &QMainWindowWrap::setStyleSheet)
     });
     // clang-format on
 
@@ -201,4 +202,14 @@ Napi::Value QMainWindowWrap::y(const Napi::CallbackInfo &info)
     Napi::HandleScope scope(env);
 
     return Napi::Number::New(env, q_->y());
+}
+
+Napi::Value QMainWindowWrap::setStyleSheet(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    q_->setStyleSheet(QString::fromStdString(info[0].ToString().Utf8Value()));
+
+    return Napi::Value();
 }

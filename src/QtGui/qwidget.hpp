@@ -64,6 +64,7 @@ private:
   Napi::Value move(const Napi::CallbackInfo &info);
   Napi::Value x(const Napi::CallbackInfo &info);
   Napi::Value y(const Napi::CallbackInfo &info);
+  Napi::Value setStyleSheet(const Napi::CallbackInfo &info);
 
   // // QUIRK
   // // Event binding. These functions bind implemented event handlers above
