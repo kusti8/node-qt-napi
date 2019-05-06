@@ -6,4 +6,5 @@ box.setStyleSheet("background-color:black;");
 box.resize(300, 300);
 box.move(300, 300);
 window.show();
+box.del();
 app.exec();

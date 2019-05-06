@@ -28,22 +28,6 @@ private:
   static Napi::FunctionReference constructor;
 
   // QWidget Funcs
-  Napi::Value resize(const Napi::CallbackInfo &info);
-  Napi::Value show(const Napi::CallbackInfo &info);
-  Napi::Value close(const Napi::CallbackInfo &info);
-  Napi::Value size(const Napi::CallbackInfo &info);
-  Napi::Value width(const Napi::CallbackInfo &info);
-  Napi::Value height(const Napi::CallbackInfo &info);
-  Napi::Value objectName(const Napi::CallbackInfo &info);
-  Napi::Value setObjectName(const Napi::CallbackInfo &info);
-  Napi::Value parent(const Napi::CallbackInfo &info);
-  Napi::Value update(const Napi::CallbackInfo &info);
-  Napi::Value setMouseTracking(const Napi::CallbackInfo &info);
-  Napi::Value hasMouseTracking(const Napi::CallbackInfo &info);
-  Napi::Value setFocusPolicy(const Napi::CallbackInfo &info);
-  Napi::Value move(const Napi::CallbackInfo &info);
-  Napi::Value x(const Napi::CallbackInfo &info);
-  Napi::Value y(const Napi::CallbackInfo &info);
-  Napi::Value setStyleSheet(const Napi::CallbackInfo &info);
+  QWIDGET_DEFS
 };
 #endif
