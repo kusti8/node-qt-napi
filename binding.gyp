@@ -6,7 +6,8 @@
         "src/qt.cpp",
         "src/QtGui/qapplication.cpp",
         "src/QtGui/qwidget.cpp",
-        "src/QtGui/qmainwindow.cpp"
+        "src/QtGui/qmainwindow.cpp",
+        "src/utils/unwrapper.cpp"
       ],
       "include_dirs": ["<!@(node -p \"require('node-addon-api').include\")"],
       "dependencies": ["<!(node -p \"require('node-addon-api').gyp\")"],

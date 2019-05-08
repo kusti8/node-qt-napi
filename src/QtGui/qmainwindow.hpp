@@ -14,6 +14,7 @@ public:
   QMainWindowImpl(QMainWindowImpl *parent, Napi::Env env) : QWidgetBase(env), QMainWindow(parent){};
 };
 
+#include "../utils/unwrapper.hpp"
 class QMainWindowWrap : public Napi::ObjectWrap<QMainWindowWrap>
 {
 public:

@@ -1,10 +1,13 @@
 const qt = require("./lib/qt");
 const app = new qt.QApplication();
 const window = new qt.QMainWindow();
-const box = new qt.QWidget(window);
+const box = new qt.QWidget();
 box.setStyleSheet("background-color:black;");
 box.resize(300, 300);
 box.move(300, 300);
+box.setParent(window);
+box.show();
+console.log("set parent");
 window.show();
-box.del();
+console.log("set parent");
 app.exec();

@@ -20,7 +20,8 @@
     Napi::Value y(const Napi::CallbackInfo &info);                \
     Napi::Value setStyleSheet(const Napi::CallbackInfo &info);    \
     Napi::Value hide(const Napi::CallbackInfo &info);             \
-    Napi::Value del(const Napi::CallbackInfo &info);
+    Napi::Value del(const Napi::CallbackInfo &info);              \
+    Napi::Value setParent(const Napi::CallbackInfo &info);
 
 #define QWIDGET_JS_DEFINES(className)                                     \
     InstanceMethod("resize", &className::resize),                         \
@@ -41,7 +42,8 @@
         InstanceMethod("y", &className::y),                               \
         InstanceMethod("setStyleSheet", &className::setStyleSheet),       \
         InstanceMethod("hide", &className::hide),                         \
-        InstanceMethod("del", &className::del),
+        InstanceMethod("del", &className::del),                           \
+        InstanceMethod("setParent", &className::setParent),
 
 #define QWIDGET_BASE_FUNCS(className)                                                 \
     Napi::Value className::resize(const Napi::CallbackInfo &info)                     \
@@ -216,6 +218,17 @@
         Napi::HandleScope scope(env);                                                 \
                                                                                       \
         delete q_;                                                                    \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::setParent(const Napi::CallbackInfo &info)                  \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        QWidget *parent = unwrap(info[0]);                                            \
+        q_->setParent(parent);                                                        \
                                                                                       \
         return Napi::Value();                                                         \
     }

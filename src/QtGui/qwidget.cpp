@@ -129,8 +129,8 @@ QWidgetWrap::QWidgetWrap(const Napi::CallbackInfo &info) : Napi::ObjectWrap<QWid
 
     if (info.Length() > 0)
     {
-        QWidgetWrap *parent = Napi::ObjectWrap<QWidgetWrap>::Unwrap(info[0].As<Napi::Object>());
-        q_ = new QWidgetImpl(parent->q_, env);
+        QWidget *parent = unwrap(info[0]);
+        q_ = new QWidgetImpl(parent, env);
     }
     else
     {

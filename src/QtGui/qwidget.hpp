@@ -33,9 +33,10 @@ private:
 class QWidgetImpl : public QWidgetBase, public QWidget
 {
 public:
-  QWidgetImpl(QWidgetImpl *parent, Napi::Env env) : QWidgetBase(env), QWidget(parent){};
+  QWidgetImpl(QWidget *parent, Napi::Env env) : QWidgetBase(env), QWidget(parent){};
 };
 
+#include "../utils/unwrapper.hpp"
 class QWidgetWrap : public Napi::ObjectWrap<QWidgetWrap>
 {
 public:
