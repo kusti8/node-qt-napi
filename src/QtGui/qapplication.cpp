@@ -5,6 +5,11 @@ Napi::FunctionReference QApplicationWrap::constructor;
 int QApplicationWrap::argc_ = 0;
 char **QApplicationWrap::argv_ = NULL;
 
+void SlotHandler::aboutToQuitSlot()
+{
+    app->aboutToQuitCallback_.Call({});
+}
+
 Napi::Object QApplicationWrap::Init(Napi::Env env, Napi::Object exports)
 {
     Napi::HandleScope scope(env);
@@ -12,7 +17,7 @@ Napi::Object QApplicationWrap::Init(Napi::Env env, Napi::Object exports)
     Napi::Function func = DefineClass(env, "QApplication", {
         InstanceMethod("exec", &QApplicationWrap::exec),
         InstanceMethod("processEvents", &QApplicationWrap::processEvents),
-        InstanceMethod("numberOfWindows", &QApplicationWrap::numberOfWindows)
+        InstanceMethod("aboutToQuitEvent", &QApplicationWrap::aboutToQuitEvent)
     });
     // clang-format on
 
@@ -23,7 +28,7 @@ Napi::Object QApplicationWrap::Init(Napi::Env env, Napi::Object exports)
     return exports;
 }
 
-QApplicationWrap::QApplicationWrap(const Napi::CallbackInfo &info) : Napi::ObjectWrap<QApplicationWrap>(info)
+QApplicationWrap::QApplicationWrap(const Napi::CallbackInfo &info) : Napi::ObjectWrap<QApplicationWrap>(info), slotHandler(this)
 {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -47,10 +52,15 @@ Napi::Value QApplicationWrap::processEvents(const Napi::CallbackInfo &info)
     return Napi::Value();
 }
 
-Napi::Value QApplicationWrap::numberOfWindows(const Napi::CallbackInfo &info)
+Napi::Value QApplicationWrap::aboutToQuitEvent(const Napi::CallbackInfo &info)
 {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    return Napi::Number::New(env, q_->topLevelWidgets().length());
+    aboutToQuitCallback_ = Napi::Persistent(info[0].As<Napi::Function>());
+    QObject::connect(q_, SIGNAL(aboutToQuit()), &slotHandler, SLOT(aboutToQuitSlot()));
+
+    return Napi::Value();
 }
+
+#include "qapplication.moc"
