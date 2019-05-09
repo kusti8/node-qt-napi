@@ -10,6 +10,9 @@ window.resizeEvent((width, height) => {
   console.log("Resized1", width, height);
   console.log(width, height);
 });
+window.closeEvent(() => {
+  console.log("Closing");
+});
 box.resizeEvent((width, height) => {
   console.log("Resized2", width, height);
 });

@@ -1,6 +1,9 @@
 #ifndef QWIDGET_MACROS_H
 #define QWIDGET_MACROS_H
 
+///////////////////////////////////////
+// Common QWidget Functions
+///////////////////////////////////////
 #define QWIDGET_DEFS                                              \
     Napi::Value resize(const Napi::CallbackInfo &info);           \
     Napi::Value show(const Napi::CallbackInfo &info);             \
@@ -23,8 +26,12 @@
     Napi::Value del(const Napi::CallbackInfo &info);              \
     Napi::Value setParent(const Napi::CallbackInfo &info);        \
                                                                   \
-    Napi::Value resizeEvent(const Napi::CallbackInfo &info);
+    Napi::Value resizeEvent(const Napi::CallbackInfo &info);      \
+    Napi::Value closeEvent(const Napi::CallbackInfo &info);
 
+///////////////////////////////////////
+// Common QWidget Functions Defines for JS
+///////////////////////////////////////
 #define QWIDGET_JS_DEFINES(className)                                     \
     InstanceMethod("resize", &className::resize),                         \
         InstanceMethod("show", &className::show),                         \
@@ -47,8 +54,55 @@
         InstanceMethod("del", &className::del),                           \
         InstanceMethod("setParent", &className::setParent),               \
                                                                           \
-        InstanceMethod("resizeEvent", &className::resizeEvent),
+        InstanceMethod("resizeEvent", &className::resizeEvent),           \
+        InstanceMethod("closeEvent", &className::closeEvent),
 
+///////////////////////////////////////
+// Subclassing for callbacks
+///////////////////////////////////////
+#define QWIDGET_IMPL_DEF(className)                      \
+    class className##Impl : public className             \
+    {                                                    \
+    public:                                              \
+        className##Impl(QWidget *parent, Napi::Env env); \
+        Napi::FunctionReference resizeCallback_;         \
+        Napi::FunctionReference closeCallback_;          \
+                                                         \
+        Napi::Env env;                                   \
+                                                         \
+    private:                                             \
+        void resizeEvent(QResizeEvent *e);               \
+        void closeEvent(QCloseEvent *e);                 \
+    };
+
+///////////////////////////////////////
+// Subclassing for callbacks function implementation
+///////////////////////////////////////
+#define QWIDGET_IMPL_FUNCS(className)                                                              \
+    className##Impl::className##Impl(QWidget *parent, Napi::Env env) : className(parent), env(env) \
+    {                                                                                              \
+    }                                                                                              \
+                                                                                                   \
+    void className##Impl::resizeEvent(QResizeEvent *e)                                             \
+    {                                                                                              \
+        if (resizeCallback_.IsEmpty())                                                             \
+            return;                                                                                \
+                                                                                                   \
+        resizeCallback_.Call({Napi::Number::New(env, e->size().width()),                           \
+                              Napi::Number::New(env, e->size().height())});                        \
+    }                                                                                              \
+                                                                                                   \
+    void className##Impl::closeEvent(QCloseEvent *e)                                               \
+    {                                                                                              \
+        if (closeCallback_.IsEmpty())                                                              \
+            return;                                                                                \
+                                                                                                   \
+        closeCallback_.Call({});                                                                   \
+    }
+
+///////////////////////////////////////
+// Common QWidget Function Implementations
+///////////////////////////////////////
 #define QWIDGET_BASE_FUNCS(className)                                                 \
     Napi::Value className::resize(const Napi::CallbackInfo &info)                     \
     {                                                                                 \
@@ -243,6 +297,16 @@
         Napi::HandleScope scope(env);                                                 \
                                                                                       \
         q_->resizeCallback_ = Napi::Persistent(info[0].As<Napi::Function>());         \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::closeEvent(const Napi::CallbackInfo &info)                 \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->closeCallback_ = Napi::Persistent(info[0].As<Napi::Function>());          \
                                                                                       \
         return Napi::Value();                                                         \
     }
