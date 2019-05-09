@@ -16,6 +16,7 @@ private:
   static Napi::FunctionReference constructor;
   Napi::Value exec(const Napi::CallbackInfo &info);
   Napi::Value processEvents(const Napi::CallbackInfo &info);
+  Napi::Value numberOfWindows(const Napi::CallbackInfo &info);
   static int argc_;
   static char **argv_;
 };

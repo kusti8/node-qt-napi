@@ -20,4 +20,5 @@ box.show();
 console.log("set parent");
 window.show();
 console.log("set parent");
+console.log(app.numberOfWindows());
 app.exec();
