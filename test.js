@@ -6,6 +6,13 @@ box.setStyleSheet("background-color:black;");
 box.resize(300, 300);
 box.move(300, 300);
 box.setParent(window);
+window.resizeEvent((width, height) => {
+  console.log("Resized1", width, height);
+  console.log(width, height);
+});
+box.resizeEvent((width, height) => {
+  console.log("Resized2", width, height);
+});
 box.show();
 console.log("set parent");
 window.show();

@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <napi.h>
+#include <iostream>
 #include "qwidget_macros.hpp"
 
 //
@@ -20,6 +21,9 @@ public:
   Napi::Value mouseMoveCallback_;
   Napi::Value keyPressCallback_;
   Napi::Value keyReleaseCallback_;
+  Napi::FunctionReference resizeCallback_;
+
+  Napi::Env env;
 
 private:
   void paintEvent(QPaintEvent *e);
@@ -28,12 +32,13 @@ private:
   void mouseMoveEvent(QMouseEvent *e);
   void keyPressEvent(QKeyEvent *e);
   void keyReleaseEvent(QKeyEvent *e);
+  void resizeEvent(QResizeEvent *e);
 };
 
-class QWidgetImpl : public QWidgetBase, public QWidget
+class QWidgetImpl : public QWidget, public QWidgetBase
 {
 public:
-  QWidgetImpl(QWidget *parent, Napi::Env env) : QWidgetBase(env), QWidget(parent){};
+  QWidgetImpl(QWidget *parent, Napi::Env env) : QWidget(parent), QWidgetBase(env){};
 };
 
 #include "../utils/unwrapper.hpp"
@@ -51,17 +56,6 @@ private:
   static Napi::FunctionReference constructor;
 
   QWIDGET_DEFS
-
-  // // QUIRK
-  // // Event binding. These functions bind implemented event handlers above
-  // // to the given callbacks. This is necessary as in Qt such handlers
-  // // are virtual and we can't dynamically implement them from JS
-  // Napi::Value paintEvent(const Napi::CallbackInfo &info);
-  // Napi::Value mousePressEvent(const Napi::CallbackInfo &info);
-  // Napi::Value mouseReleaseEvent(const Napi::CallbackInfo &info);
-  // Napi::Value mouseMoveEvent(const Napi::CallbackInfo &info);
-  // Napi::Value keyPressEvent(const Napi::CallbackInfo &info);
-  // Napi::Value keyReleaseEvent(const Napi::CallbackInfo &info);
 };
 
 #endif

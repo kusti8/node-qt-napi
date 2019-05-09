@@ -2,7 +2,7 @@
 
 Napi::FunctionReference QWidgetWrap::constructor;
 
-QWidgetBase::QWidgetBase(Napi::Env env)
+QWidgetBase::QWidgetBase(Napi::Env env) : env(env)
 {
     // Initialize callbacks as boolean values so we can test if the callback
     // has been set via ->IsFunction() below
@@ -104,6 +104,15 @@ void QWidgetBase::keyReleaseEvent(QKeyEvent *e)
     Napi::Function cb = keyReleaseCallback_.As<Napi::Function>();
 
     cb.Call(argv);
+}
+
+void QWidgetBase::resizeEvent(QResizeEvent *e)
+{
+    if (resizeCallback_.IsEmpty())
+        return;
+
+    resizeCallback_.Call({Napi::Number::New(env, e->size().width()),
+                          Napi::Number::New(env, e->size().height())});
 }
 
 Napi::Object QWidgetWrap::Init(Napi::Env env, Napi::Object exports)

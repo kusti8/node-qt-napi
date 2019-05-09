@@ -8,10 +8,28 @@
 // QMainWindowImpl()
 // Extends QWidget to implement virtual methods from QWidget
 //
-class QMainWindowImpl : public QWidgetBase, public QMainWindow
+class QMainWindowImpl : public QMainWindow
 {
 public:
-  QMainWindowImpl(QMainWindowImpl *parent, Napi::Env env) : QWidgetBase(env), QMainWindow(parent){};
+  QMainWindowImpl(QWidget *parent, Napi::Env env);
+  Napi::Value paintEventCallback_;
+  Napi::Value mousePressCallback_;
+  Napi::Value mouseReleaseCallback_;
+  Napi::Value mouseMoveCallback_;
+  Napi::Value keyPressCallback_;
+  Napi::Value keyReleaseCallback_;
+  Napi::FunctionReference resizeCallback_;
+
+  Napi::Env env;
+
+private:
+  void paintEvent(QPaintEvent *e);
+  void mousePressEvent(QMouseEvent *e);
+  void mouseReleaseEvent(QMouseEvent *e);
+  void mouseMoveEvent(QMouseEvent *e);
+  void keyPressEvent(QKeyEvent *e);
+  void keyReleaseEvent(QKeyEvent *e);
+  void resizeEvent(QResizeEvent *e);
 };
 
 #include "../utils/unwrapper.hpp"

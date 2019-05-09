@@ -21,7 +21,9 @@
     Napi::Value setStyleSheet(const Napi::CallbackInfo &info);    \
     Napi::Value hide(const Napi::CallbackInfo &info);             \
     Napi::Value del(const Napi::CallbackInfo &info);              \
-    Napi::Value setParent(const Napi::CallbackInfo &info);
+    Napi::Value setParent(const Napi::CallbackInfo &info);        \
+                                                                  \
+    Napi::Value resizeEvent(const Napi::CallbackInfo &info);
 
 #define QWIDGET_JS_DEFINES(className)                                     \
     InstanceMethod("resize", &className::resize),                         \
@@ -43,7 +45,9 @@
         InstanceMethod("setStyleSheet", &className::setStyleSheet),       \
         InstanceMethod("hide", &className::hide),                         \
         InstanceMethod("del", &className::del),                           \
-        InstanceMethod("setParent", &className::setParent),
+        InstanceMethod("setParent", &className::setParent),               \
+                                                                          \
+        InstanceMethod("resizeEvent", &className::resizeEvent),
 
 #define QWIDGET_BASE_FUNCS(className)                                                 \
     Napi::Value className::resize(const Napi::CallbackInfo &info)                     \
@@ -229,6 +233,16 @@
                                                                                       \
         QWidget *parent = unwrap(info[0]);                                            \
         q_->setParent(parent);                                                        \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::resizeEvent(const Napi::CallbackInfo &info)                \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->resizeCallback_ = Napi::Persistent(info[0].As<Napi::Function>());         \
                                                                                       \
         return Napi::Value();                                                         \
     }
