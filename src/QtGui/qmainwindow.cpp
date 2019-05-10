@@ -27,8 +27,8 @@ QMainWindowWrap::QMainWindowWrap(const Napi::CallbackInfo &info) : Napi::ObjectW
 
     if (info.Length() > 0)
     {
-        QMainWindowWrap *parent = Napi::ObjectWrap<QMainWindowWrap>::Unwrap(info[0].As<Napi::Object>());
-        q_ = new QMainWindowImpl(parent->q_, env);
+        QWidget *parent = unwrap(info[0]);
+        q_ = new QMainWindowImpl(parent, env);
     }
     else
     {
