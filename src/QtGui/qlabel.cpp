@@ -37,6 +37,7 @@ QLabelWrap::QLabelWrap(const Napi::CallbackInfo &info) : Napi::ObjectWrap<QLabel
         QLabelImpl *q_parent = 0;
         q_ = new QLabelImpl(q_parent, env);
     }
+    q_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 }
 
 QLabelWrap::~QLabelWrap()
