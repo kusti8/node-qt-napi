@@ -10,7 +10,7 @@ Napi::Object QLabelWrap::Init(Napi::Env env, Napi::Object exports)
     // clang-format off
     Napi::Function func = DefineClass(env, "QLabel", {
         InstanceMethod("setText", &QLabelWrap::setText),
-        InstanceMethod("text", &QLabelWrap::setText),
+        InstanceMethod("text", &QLabelWrap::text),
         QWIDGET_JS_DEFINES(QLabelWrap)
     });
     // clang-format on
