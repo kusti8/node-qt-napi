@@ -25,6 +25,7 @@
     Napi::Value hide(const Napi::CallbackInfo &info);             \
     Napi::Value del(const Napi::CallbackInfo &info);              \
     Napi::Value setParent(const Napi::CallbackInfo &info);        \
+    Napi::Value adjustSize(const Napi::CallbackInfo &info);       \
                                                                   \
     Napi::Value resizeEvent(const Napi::CallbackInfo &info);      \
     Napi::Value closeEvent(const Napi::CallbackInfo &info);
@@ -53,6 +54,7 @@
         InstanceMethod("hide", &className::hide),                         \
         InstanceMethod("del", &className::del),                           \
         InstanceMethod("setParent", &className::setParent),               \
+        InstanceMethod("adjustSize", &className::adjustSize),             \
                                                                           \
         InstanceMethod("resizeEvent", &className::resizeEvent),           \
         InstanceMethod("closeEvent", &className::closeEvent),
@@ -307,6 +309,16 @@
         Napi::HandleScope scope(env);                                                 \
                                                                                       \
         q_->closeCallback_ = Napi::Persistent(info[0].As<Napi::Function>());          \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::adjustSize(const Napi::CallbackInfo &info)                 \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->adjustSize();                                                             \
                                                                                       \
         return Napi::Value();                                                         \
     }

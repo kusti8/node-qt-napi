@@ -49,7 +49,6 @@ Napi::Value QLabelWrap::setText(const Napi::CallbackInfo &info)
 {
     q_->setText(QString::fromStdString(info[0].ToString().Utf8Value()));
     std::cout << "setting" << info[0].ToString().Utf8Value() << std::endl;
-    q_->adjustSize();
     return Napi::Value();
 }
 
