@@ -17,7 +17,7 @@ box.resizeEvent((width, height) => {
   console.log("Resized2", width, height);
 });
 const label = new qt.QLabel(box);
-label.setText('<span style="color:blue;">Hello</span>');
+label.setText('<span style="">dsawewwww<span style="">Hello2</span></span>');
 box.show();
 console.log("set parent");
 window.show();

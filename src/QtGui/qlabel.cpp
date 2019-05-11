@@ -10,6 +10,7 @@ Napi::Object QLabelWrap::Init(Napi::Env env, Napi::Object exports)
     // clang-format off
     Napi::Function func = DefineClass(env, "QLabel", {
         InstanceMethod("setText", &QLabelWrap::setText),
+        InstanceMethod("text", &QLabelWrap::setText),
         QWIDGET_JS_DEFINES(QLabelWrap)
     });
     // clang-format on
@@ -46,7 +47,16 @@ QLabelWrap::~QLabelWrap()
 Napi::Value QLabelWrap::setText(const Napi::CallbackInfo &info)
 {
     q_->setText(QString::fromStdString(info[0].ToString().Utf8Value()));
+    std::cout << "setting" << info[0].ToString().Utf8Value() << std::endl;
     return Napi::Value();
+}
+
+Napi::Value QLabelWrap::text(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    return Napi::String::New(env, q_->text().toStdString());
 }
 
 // QWidget functions

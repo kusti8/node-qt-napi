@@ -4,6 +4,7 @@
 #include <napi.h>
 #include "qwidget.hpp"
 #include "qwidget_macros.hpp"
+#include <iostream>
 
 QWIDGET_IMPL_DEF(QLabel)
 
@@ -22,6 +23,7 @@ private:
   static Napi::FunctionReference constructor;
 
   Napi::Value setText(const Napi::CallbackInfo &info);
+  Napi::Value text(const Napi::CallbackInfo &info);
 
   // QWidget Funcs
   QWIDGET_DEFS
