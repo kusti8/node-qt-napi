@@ -26,6 +26,8 @@
     Napi::Value del(const Napi::CallbackInfo &info);              \
     Napi::Value setParent(const Napi::CallbackInfo &info);        \
     Napi::Value adjustSize(const Napi::CallbackInfo &info);       \
+    Napi::Value sizeHint(const Napi::CallbackInfo &info);         \
+    Napi::Value minimumSizeHint(const Napi::CallbackInfo &info);  \
                                                                   \
     Napi::Value resizeEvent(const Napi::CallbackInfo &info);      \
     Napi::Value closeEvent(const Napi::CallbackInfo &info);
@@ -55,6 +57,8 @@
         InstanceMethod("del", &className::del),                           \
         InstanceMethod("setParent", &className::setParent),               \
         InstanceMethod("adjustSize", &className::adjustSize),             \
+        InstanceMethod("sizeHint", &className::sizeHint),                 \
+        InstanceMethod("minimumSizeHint", &className::minimumSizeHint),   \
                                                                           \
         InstanceMethod("resizeEvent", &className::resizeEvent),           \
         InstanceMethod("closeEvent", &className::closeEvent),
@@ -321,5 +325,33 @@
         q_->adjustSize();                                                             \
                                                                                       \
         return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::sizeHint(const Napi::CallbackInfo &info)                   \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        Napi::Object out = Napi::Object::New(env);                                    \
+                                                                                      \
+        QSize size = q_->sizeHint();                                                  \
+        out.Set("w", size.width());                                                   \
+        out.Set("h", size.height());                                                  \
+                                                                                      \
+        return out;                                                                   \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::minimumSizeHint(const Napi::CallbackInfo &info)            \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        Napi::Object out = Napi::Object::New(env);                                    \
+                                                                                      \
+        QSize size = q_->minimumSizeHint();                                           \
+        out.Set("w", size.width());                                                   \
+        out.Set("h", size.height());                                                  \
+                                                                                      \
+        return out;                                                                   \
     }
 #endif
