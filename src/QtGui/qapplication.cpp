@@ -17,6 +17,7 @@ Napi::Object QApplicationWrap::Init(Napi::Env env, Napi::Object exports)
     Napi::Function func = DefineClass(env, "QApplication", {
         InstanceMethod("exec", &QApplicationWrap::exec),
         InstanceMethod("processEvents", &QApplicationWrap::processEvents),
+        InstanceMethod("quit", &QApplicationWrap::quit),
         InstanceMethod("aboutToQuitEvent", &QApplicationWrap::aboutToQuitEvent)
     });
     // clang-format on
@@ -49,6 +50,12 @@ Napi::Value QApplicationWrap::exec(const Napi::CallbackInfo &info)
 Napi::Value QApplicationWrap::processEvents(const Napi::CallbackInfo &info)
 {
     q_->processEvents();
+    return Napi::Value();
+}
+
+Napi::Value QApplicationWrap::quit(const Napi::CallbackInfo &info)
+{
+    q_->quit();
     return Napi::Value();
 }
 

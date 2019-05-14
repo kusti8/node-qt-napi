@@ -32,6 +32,7 @@ private:
   static Napi::FunctionReference constructor;
   Napi::Value exec(const Napi::CallbackInfo &info);
   Napi::Value processEvents(const Napi::CallbackInfo &info);
+  Napi::Value quit(const Napi::CallbackInfo &info);
   Napi::Value aboutToQuitEvent(const Napi::CallbackInfo &info);
   static int argc_;
   static char **argv_;

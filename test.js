@@ -27,4 +27,5 @@ window.show();
 console.log("set parent");
 app.aboutToQuitEvent(() => console.log("Quitting"));
 console.log("Height", label.height());
+console.log(qt.desktopSize());
 app.exec();

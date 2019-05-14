@@ -28,6 +28,7 @@
     Napi::Value adjustSize(const Napi::CallbackInfo &info);       \
     Napi::Value sizeHint(const Napi::CallbackInfo &info);         \
     Napi::Value minimumSizeHint(const Napi::CallbackInfo &info);  \
+    Napi::Value stackUnder(const Napi::CallbackInfo &info);       \
                                                                   \
     Napi::Value resizeEvent(const Napi::CallbackInfo &info);      \
     Napi::Value closeEvent(const Napi::CallbackInfo &info);
@@ -59,6 +60,7 @@
         InstanceMethod("adjustSize", &className::adjustSize),             \
         InstanceMethod("sizeHint", &className::sizeHint),                 \
         InstanceMethod("minimumSizeHint", &className::minimumSizeHint),   \
+        InstanceMethod("stackUnder", &className::stackUnder),             \
                                                                           \
         InstanceMethod("resizeEvent", &className::resizeEvent),           \
         InstanceMethod("closeEvent", &className::closeEvent),
@@ -353,5 +355,16 @@
         out.Set("h", size.height());                                                  \
                                                                                       \
         return out;                                                                   \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::stackUnder(const Napi::CallbackInfo &info)                 \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        QWidget *under = unwrap(info[0]);                                             \
+        q_->stackUnder(under);                                                        \
+                                                                                      \
+        return Napi::Value();                                                         \
     }
 #endif

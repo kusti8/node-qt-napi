@@ -9,6 +9,7 @@
         "src/QtGui/qwidget.cpp",
         "src/QtGui/qmainwindow.cpp",
         "src/QtGui/qlabel.cpp",
+        "src/misc.cpp",
         "src/utils/unwrapper.cpp",
       ],
       "include_dirs": ["<!@(node -p \"require('node-addon-api').include\")"],
