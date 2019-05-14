@@ -3,7 +3,7 @@
     {
       "target_name": "qt",
       "sources": [
-        "<!(moc src/QtGui/qapplication.hpp -o src/QtGui/qapplication.moc)",
+        "<!(QT_SELECT=5 moc src/QtGui/qapplication.hpp -o src/QtGui/qapplication.moc)",
         "src/qt.cpp",
         "src/QtGui/qapplication.cpp",
         "src/QtGui/qwidget.cpp",
