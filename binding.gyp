@@ -43,7 +43,19 @@
             ],
             "libraries": ["<!@(pkg-config --libs-only-l Qt5Core Qt5Gui Qt5Widgets)"]
           }
-        ]
+        ],
+        ['OS=="win"', {
+          'include_dirs': [
+              'deps/5.12.3/msvc2017_64/include',
+              'deps/5.12.3/msvc2017_64/include/QtCore',
+              'deps/5.12.3/msvc2017_64/include/QtGui',
+          ],
+          'libraries': [
+              # TODO: fix node-gyp behavior that requires ../
+              '../deps/5.12.3/msvc2017_64/lib/QtCore5.lib',
+              '../deps/5.12.3/msvc2017_64/lib/QtGui5.lib',
+          ]
+        }]
       ]
     }
   ]
