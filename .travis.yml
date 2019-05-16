@@ -18,7 +18,7 @@ addons:
       - qt5-default
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" != "osx" ]; then export CXX="g++-5"; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="g++-5"; fi
 
 install:
   - npm install
