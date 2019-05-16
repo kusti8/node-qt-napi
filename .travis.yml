@@ -1,0 +1,25 @@
+language: node_js
+
+node_js:
+  - "9"
+  - "10"
+  - "11"
+
+os:
+  - linux
+  - osx
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" != "osx" ]; then export CXX="g++-5"; fi
+
+install:
+  - npm install
+  - COMMIT_MESSAGE=$(git log --format=%B --no-merges -n 1 | tr -d '\n')
+  - if [[ ${COMMIT_MESSAGE} =~ "[publish binary]" ]]; then node-pre-gyp-github publish; fi;

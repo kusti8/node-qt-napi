@@ -1,9 +1,8 @@
 {
   "targets": [
     {
-      "target_name": "qt",
+      "target_name": "<(module_name)",
       "sources": [
-        "<!(QT_SELECT=5 moc src/QtGui/qapplication.hpp -o src/QtGui/qapplication.moc)",
         "src/qt.cpp",
         "src/QtGui/qapplication.cpp",
         "src/QtGui/qwidget.cpp",
@@ -21,6 +20,9 @@
         "CLANG_CXX_LIBRARY": "libc++",
         "MACOSX_DEPLOYMENT_TARGET": "10.7"
       },
+      "defines": [
+        "NAPI_VERSION=<(napi_build_version)",
+      ],
       "msvs_settings": {
         "VCCLCompilerTool": { "ExceptionHandling": 1 }
       },
@@ -41,21 +43,52 @@
             "ldflags": [
               "<!@(pkg-config --libs-only-L --libs-only-other Qt5Core Qt5Gui Qt5Widgets)"
             ],
-            "libraries": ["<!@(pkg-config --libs-only-l Qt5Core Qt5Gui Qt5Widgets)"]
+            "libraries": ["<!@(pkg-config --libs-only-l Qt5Core Qt5Gui Qt5Widgets)"],
           }
         ],
         ['OS=="win"', {
           'include_dirs': [
-              'deps/5.12.3/msvc2017_64/include',
-              'deps/5.12.3/msvc2017_64/include/QtCore',
-              'deps/5.12.3/msvc2017_64/include/QtGui',
+              'deps/5.12.3/win32/include',
+              'deps/5.12.3/win32/include/QtCore',
+              'deps/5.12.3/win32/include/QtGui',
+              'deps/5.12.3/win32/include/QtWidgets',
           ],
           'libraries': [
               # TODO: fix node-gyp behavior that requires ../
-              '../deps/5.12.3/msvc2017_64/lib/QtCore5.lib',
-              '../deps/5.12.3/msvc2017_64/lib/QtGui5.lib',
+              '../deps/5.12.3/win32/lib/Qt5Core.lib',
+              '../deps/5.12.3/win32/lib/Qt5Gui.lib',
+              '../deps/5.12.3/win32/lib/Qt5Widgets.lib',
           ]
         }]
+      ]
+    },
+    {
+      "target_name": "action_after_build",
+      "type": "none",
+      "dependencies": [ "<(module_name)" ],
+      "copies": [
+        {
+          "files": [ "<(PRODUCT_DIR)/<(module_name).node" ],
+          "destination": "<(module_path)"
+        }
+      ],
+      'conditions': [
+          ['OS == "win"', {
+             "copies": [
+               {
+                "files": [
+                  "deps/5.12.3/win32/Qt5Core.dll",
+                  "deps/5.12.3/win32/Qt5Gui.dll",
+                  "deps/5.12.3/win32/Qt5Widgets.dll",
+                  "deps/5.12.3/win32/vccorlib140.dll",
+                  "deps/5.12.3/win32/msvcp140.dll",
+                  "deps/5.12.3/win32/vcruntime140.dll"
+                ],
+                "destination": "<(module_path)/"
+               }
+             ]
+          }
+        ]
       ]
     }
   ]

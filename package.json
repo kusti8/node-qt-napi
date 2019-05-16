@@ -4,12 +4,28 @@
   "description": "",
   "main": "./lib/qt.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\"",
+    "install": "node-pre-gyp install --fallback-to-build"
   },
   "author": "Gustav Hansen",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kusti8/node-qt-napi.git"
+  },
   "dependencies": {
-    "bindings": "^1.5.0",
+    "node-pre-gyp": "^0.13.0",
     "node-addon-api": "*"
+  },
+  "devDependencies": {},
+  "binary": {
+    "module_name": "qt",
+    "module_path": "./bindings/napi-v{napi_build_version}",
+    "host": "https://github.com/kusti8/node-qt-napi/releases/download/",
+    "napi_versions": [
+      3
+    ],
+    "remote_path": "{version}",
+    "package_name": "{module_name}-v{version}-{napi_build_version}-{platform}-{arch}.tar.gz"
   }
 }
