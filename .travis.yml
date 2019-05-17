@@ -16,6 +16,7 @@ addons:
       - qtbase5-dev
       - build-essential
       - qt5-default
+      - qttools5-dev-tools
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="g++-5"; fi

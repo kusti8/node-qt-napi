@@ -39,6 +39,10 @@
         [
           "OS==\"linux\"",
           {
+            "sources": [
+              "<!(moc src/QtGui/qapplication.hpp -o src/QtGui/qapplication.moc)",
+              "src/QtGui/qapplication.cpp",
+            ],
             "cflags": ["<!@(pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets)"],
             "ldflags": [
               "<!@(pkg-config --libs-only-L --libs-only-other Qt5Core Qt5Gui Qt5Widgets)"
