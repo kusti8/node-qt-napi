@@ -17,7 +17,9 @@
     "node-pre-gyp": "^0.13.0",
     "node-addon-api": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "node-pre-gyp-github": "^1.4.3"
+  },
   "binary": {
     "module_name": "qt",
     "module_path": "./bindings/napi-v{napi_build_version}",
