@@ -25,6 +25,8 @@
     "module_path": "./bindings/napi-v{napi_build_version}",
     "host": "https://github.com/kusti8/node-qt-napi/releases/download/",
     "napi_versions": [
+      1,
+      2,
       3
     ],
     "remote_path": "{version}",

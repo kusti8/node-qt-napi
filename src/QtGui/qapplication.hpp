@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QObject>
 #include <napi.h>
+#include <iostream>
 
 class QApplicationWrap;
 class SlotHandler : public QObject

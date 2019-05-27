@@ -33,7 +33,18 @@
             "cflags+": ["-fvisibility=hidden"],
             "xcode_settings": {
               "GCC_SYMBOLS_PRIVATE_EXTERN": "YES"
-            }
+            },
+            'include_dirs': [
+              'deps/5.12.3/darwin/include',
+              'deps/5.12.3/darwin/include/QtCore',
+              'deps/5.12.3/darwin/include/QtGui',
+              'deps/5.12.3/darwin/include/QtWidgets'
+            ],
+            'libraries': [
+              '../deps/5.12.3/darwin/lib/QtCore.framework/QtCore',
+              '../deps/5.12.3/darwin/lib/QtGui.framework/QtGui',
+              '../deps/5.12.3/darwin/lib/QtWidgets.framework/QtWidgets',
+            ]
           }
         ],
         [
@@ -92,7 +103,18 @@
                }
              ]
           }
-        ]
+        ],
+        ['OS == "mac"', {
+          "copies": [
+            {
+              "files": [
+                "deps/5.12.3/darwin/lib",
+		"deps/5.12.3/darwin/platforms"
+              ],
+              "destination": "<(module_path)"
+            }
+          ]
+        }]
       ]
     }
   ]
