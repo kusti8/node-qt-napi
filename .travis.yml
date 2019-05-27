@@ -22,6 +22,8 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="g++-5"; fi
 
 install:
-  - npm install
+  - npm install --napi_version=1
+  - npm install --napi_version=2
+  - npm install --napi_version=3
   - COMMIT_MESSAGE=$(git log --format=%B --no-merges -n 1 | tr -d '\n')
   - if [[ ${COMMIT_MESSAGE} =~ "[publish binary]" ]]; then node-pre-gyp package && node-pre-gyp-github publish; fi;

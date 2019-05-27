@@ -6,7 +6,9 @@ environment:
 install:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - ps: Install-Product node $env:nodejs_version x64
-  - npm install
+  - npm install --napi_version=1
+  - npm install --napi_version=2
+  - npm install --napi_version=3
   - scripts/appveyor_build.bat
 
 build: OFF
