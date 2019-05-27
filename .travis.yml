@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "8"
+  - "8.0"
   - "9.3"
   - "11"
 
@@ -26,4 +26,4 @@ before_install:
 install:
   - npm install
   - COMMIT_MESSAGE=$(git log --format=%B --no-merges -n 1 | tr -d '\n')
-  - if [[ ${COMMIT_MESSAGE} =~ "[publish binary]" ]]; then node-pre-gyp package --build-latest-napi-version-only && node-pre-gyp-github publish --build-latest-napi-version-only; fi;
+  - if [[ ${COMMIT_MESSAGE} =~ "[publish binary]" ]]; then node-pre-gyp package --build-latest-napi-version-only && node-pre-gyp-github publish; fi;
