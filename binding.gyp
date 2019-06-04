@@ -97,10 +97,15 @@
                   "deps/5.12.3/win32/Qt5Widgets.dll",
                   "deps/5.12.3/win32/vccorlib140.dll",
                   "deps/5.12.3/win32/msvcp140.dll",
-                  "deps/5.12.3/win32/vcruntime140.dll",
-                  "deps/5.12.3/win32/platforms/"
+                  "deps/5.12.3/win32/vcruntime140.dll"
                 ],
                 "destination": "<(module_path)"
+               },
+               {
+                 "files": [
+                    "deps/5.12.3/win32/platforms/qwindows.dll"
+                 ],
+                 "destination": "<(module_path)/platforms/"
                }
              ]
           }
