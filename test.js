@@ -16,6 +16,8 @@ window.closeEvent(() => {
 box.resizeEvent((width, height) => {
   console.log("Resized2", width, height);
 });
+box.mousePressEvent(() => console.log("CLICKED!"));
+box.mouseReleaseEvent(() => console.log("UNCLICKED!"));
 const label = new qt.QLabel(box);
 console.log("Size hint", label.sizeHint());
 console.log("Height", label.height());
