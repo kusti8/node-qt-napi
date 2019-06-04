@@ -33,7 +33,6 @@ QApplicationWrap::QApplicationWrap(const Napi::CallbackInfo &info) : Napi::Objec
 {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
-    std::cout << QApplication::applicationDirPath().toStdString() << std::endl;
     q_ = new QApplication(argc_, argv_);
 }
 
