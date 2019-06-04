@@ -30,5 +30,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kusti8/node-qt-napi.git"
-  },
+  }
 }
