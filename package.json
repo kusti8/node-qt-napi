@@ -9,7 +9,8 @@
     "host": "https://github.com/kusti8/node-qt-napi/releases/download/",
     "napi_versions": [
       2,
-      3
+      3,
+      4
     ],
     "remote_path": "{version}",
     "package_name": "{module_name}-v{version}-{napi_build_version}-{platform}-{arch}.tar.gz"
