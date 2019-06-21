@@ -14,14 +14,14 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-5
+      - g++-6
       - qtbase5-dev
       - build-essential
       - qt5-default
       - qttools5-dev-tools
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="g++-5"; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="g++-6"; fi
 
 install:
   - npm install

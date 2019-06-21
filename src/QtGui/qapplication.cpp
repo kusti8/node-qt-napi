@@ -38,7 +38,7 @@ QApplicationWrap::QApplicationWrap(const Napi::CallbackInfo &info) : Napi::Objec
 
 QApplicationWrap::~QApplicationWrap()
 {
-    delete q_;
+    q_ = NULL;
 }
 
 Napi::Value QApplicationWrap::exec(const Napi::CallbackInfo &info)

@@ -16,8 +16,8 @@
     "package_name": "{module_name}-v{version}-{napi_build_version}-{platform}-{arch}.tar.gz"
   },
   "dependencies": {
-    "node-pre-gyp": "^0.13.0",
-    "node-addon-api": "*"
+    "node-addon-api": "*",
+    "node-pre-gyp": "^0.13.0"
   },
   "devDependencies": {
     "node-pre-gyp-github": "^1.4.3"

@@ -42,7 +42,7 @@ QLabelWrap::QLabelWrap(const Napi::CallbackInfo &info) : Napi::ObjectWrap<QLabel
 
 QLabelWrap::~QLabelWrap()
 {
-    delete q_;
+    q_ = NULL;
 }
 
 Napi::Value QLabelWrap::setText(const Napi::CallbackInfo &info)

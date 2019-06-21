@@ -39,7 +39,7 @@ QMainWindowWrap::QMainWindowWrap(const Napi::CallbackInfo &info) : Napi::ObjectW
 
 QMainWindowWrap::~QMainWindowWrap()
 {
-    delete q_;
+    q_ = NULL;
 }
 
 // QWidget functions
