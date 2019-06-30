@@ -11,6 +11,8 @@ Napi::Object QLabelWrap::Init(Napi::Env env, Napi::Object exports)
     Napi::Function func = DefineClass(env, "QLabel", {
         InstanceMethod("setText", &QLabelWrap::setText),
         InstanceMethod("text", &QLabelWrap::text),
+        InstanceMethod("setPixmap", &QLabelWrap::setPixmap),
+        InstanceMethod("setScaledContents", &QLabelWrap::setScaledContents),
         QWIDGET_JS_DEFINES(QLabelWrap)
     });
     // clang-format on
@@ -57,6 +59,19 @@ Napi::Value QLabelWrap::text(const Napi::CallbackInfo &info)
     Napi::HandleScope scope(env);
 
     return Napi::String::New(env, q_->text().toStdString());
+}
+
+Napi::Value QLabelWrap::setPixmap(const Napi::CallbackInfo &info)
+{
+    QPixmap *p = Napi::ObjectWrap<QPixmapWrap>::Unwrap(info[0].ToObject())->q_;
+    q_->setPixmap(*p);
+    return Napi::Value();
+}
+
+Napi::Value QLabelWrap::setScaledContents(const Napi::CallbackInfo &info)
+{
+    q_->setScaledContents(info[0].ToBoolean().Value());
+    return Napi::Value();
 }
 
 // QWidget functions

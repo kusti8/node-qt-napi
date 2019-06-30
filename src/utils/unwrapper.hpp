@@ -6,6 +6,7 @@
 #include "../QtGui/qapplication.hpp"
 #include "../QtGui/qmainwindow.hpp"
 #include "../QtGui/qwidget.hpp"
+#include "../QtGui/qlabel.hpp"
 
 QWidget *unwrap(Napi::Value object);
 
