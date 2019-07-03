@@ -75,7 +75,7 @@
 #define QWIDGET_IMPL_DEF(className)                      \
     class className##Impl : public className             \
     {                                                    \
-      public:                                            \
+    public:                                              \
         className##Impl(QWidget *parent, Napi::Env env); \
         Napi::FunctionReference resizeCallback_;         \
         Napi::FunctionReference closeCallback_;          \
@@ -84,7 +84,7 @@
                                                          \
         Napi::Env env;                                   \
                                                          \
-      private:                                           \
+    private:                                             \
         void resizeEvent(QResizeEvent *e);               \
         void closeEvent(QCloseEvent *e);                 \
         void mousePressEvent(QMouseEvent *e);            \
@@ -390,7 +390,8 @@
         return Napi::Value();                                                         \
     }                                                                                 \
                                                                                       \
-    Napi::Value className::mousePressEvent(const Napi::CallbackInfo &info)            \
+    Napi::Value                                                                       \
+    className::mousePressEvent(const Napi::CallbackInfo &info)                        \
     {                                                                                 \
         Napi::Env env = info.Env();                                                   \
         Napi::HandleScope scope(env);                                                 \

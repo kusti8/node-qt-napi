@@ -14,11 +14,15 @@ public:
   ~QPixmapWrap();
 
   QPixmap *q_;
+  QPixmap q2_;
 
 private:
   static Napi::FunctionReference constructor;
 
   Napi::Value load(const Napi::CallbackInfo &info);
   Napi::Value loadFromData(const Napi::CallbackInfo &info);
+  Napi::Value scaled(const Napi::CallbackInfo &info);
+  Napi::Value scaledToWidth(const Napi::CallbackInfo &info);
+  Napi::Value scaledToHeight(const Napi::CallbackInfo &info);
 };
 #endif

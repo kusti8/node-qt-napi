@@ -13,6 +13,7 @@ Napi::Object QLabelWrap::Init(Napi::Env env, Napi::Object exports)
         InstanceMethod("text", &QLabelWrap::text),
         InstanceMethod("setPixmap", &QLabelWrap::setPixmap),
         InstanceMethod("setScaledContents", &QLabelWrap::setScaledContents),
+        InstanceMethod("setAlignment", &QLabelWrap::setAlignment),
         QWIDGET_JS_DEFINES(QLabelWrap)
     });
     // clang-format on
@@ -71,6 +72,16 @@ Napi::Value QLabelWrap::setPixmap(const Napi::CallbackInfo &info)
 Napi::Value QLabelWrap::setScaledContents(const Napi::CallbackInfo &info)
 {
     q_->setScaledContents(info[0].ToBoolean().Value());
+    return Napi::Value();
+}
+
+Napi::Value QLabelWrap::setAlignment(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    q_->setAlignment(static_cast<Qt::Alignment>(info[0].ToNumber().Int32Value()));
+
     return Napi::Value();
 }
 

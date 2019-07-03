@@ -8,7 +8,10 @@ Napi::Object QPixmapWrap::Init(Napi::Env env, Napi::Object exports)
     // clang-format off
     Napi::Function func = DefineClass(env, "QLabel", {
         InstanceMethod("load", &QPixmapWrap::load),
-        InstanceMethod("loadFromData", &QPixmapWrap::loadFromData)
+        InstanceMethod("loadFromData", &QPixmapWrap::loadFromData),
+        InstanceMethod("scaled", &QPixmapWrap::scaled),
+        InstanceMethod("scaledToWidth", &QPixmapWrap::scaledToWidth),
+        InstanceMethod("scaledToHeight", &QPixmapWrap::scaledToHeight)
     });
     // clang-format on
 
@@ -46,6 +49,39 @@ Napi::Value QPixmapWrap::loadFromData(const Napi::CallbackInfo &info)
     Napi::Buffer<unsigned char> buf = info[0].As<Napi::Buffer<unsigned char>>();
 
     q_->loadFromData(buf.Data(), buf.Length());
+
+    return Napi::Value();
+}
+
+Napi::Value QPixmapWrap::scaled(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    q2_ = q_->scaled(info[0].ToNumber().Int32Value(), info[1].ToNumber().Int32Value(), static_cast<Qt::AspectRatioMode>(info[2].ToNumber().Int32Value()));
+    q_ = &q2_;
+
+    return Napi::Value();
+}
+
+Napi::Value QPixmapWrap::scaledToWidth(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    q2_ = q_->scaledToWidth(info[0].ToNumber().Int32Value());
+    q_ = &q2_;
+
+    return Napi::Value();
+}
+
+Napi::Value QPixmapWrap::scaledToHeight(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    q2_ = q_->scaledToHeight(info[0].ToNumber().Int32Value());
+    q_ = &q2_;
 
     return Napi::Value();
 }
