@@ -5,7 +5,7 @@ Napi::FunctionReference QApplicationWrap::constructor;
 int QApplicationWrap::argc_ = 0;
 char **QApplicationWrap::argv_ = NULL;
 
-void SlotHandler::aboutToQuitSlot()
+void SlotHandlerApplication::aboutToQuitSlot()
 {
     app->aboutToQuitCallback_.Call({});
 }

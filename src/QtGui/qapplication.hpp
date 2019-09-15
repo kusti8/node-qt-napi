@@ -6,13 +6,13 @@
 #include <iostream>
 
 class QApplicationWrap;
-class SlotHandler : public QObject
+class SlotHandlerApplication : public QObject
 {
 
   Q_OBJECT
 
 public:
-  SlotHandler(QApplicationWrap *app) : app(app){};
+  SlotHandlerApplication(QApplicationWrap *app) : app(app){};
   QApplicationWrap *app;
 
 public slots:
@@ -38,6 +38,6 @@ private:
   static int argc_;
   static char **argv_;
 
-  SlotHandler slotHandler;
+  SlotHandlerApplication slotHandler;
 };
 #endif

@@ -7,6 +7,7 @@
 #include "../QtGui/qmainwindow.hpp"
 #include "../QtGui/qwidget.hpp"
 #include "../QtGui/qlabel.hpp"
+#include "../QtGui/qlineedit.hpp"
 
 QWidget *unwrap(Napi::Value object);
 

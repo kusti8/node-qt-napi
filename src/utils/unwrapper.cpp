@@ -10,5 +10,7 @@ QWidget *unwrap(Napi::Value object)
         return Napi::ObjectWrap<QWidgetWrap>::Unwrap(object.ToObject())->q_;
     if (constructor_name == "QLabel")
         return Napi::ObjectWrap<QLabelWrap>::Unwrap(object.ToObject())->q_;
+    if (constructor_name == "QLineEdit")
+        return Napi::ObjectWrap<QLineEditWrap>::Unwrap(object.ToObject())->q_;
     return NULL;
 }

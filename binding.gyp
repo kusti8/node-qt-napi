@@ -8,6 +8,7 @@
                 "src/QtGui/qwidget.cpp",
                 "src/QtGui/qmainwindow.cpp",
                 "src/QtGui/qlabel.cpp",
+                "src/QtGui/qlineedit.cpp",
                 "src/QtGui/qpixmap.cpp",
                 "src/misc.cpp",
                 "src/utils/unwrapper.cpp",
