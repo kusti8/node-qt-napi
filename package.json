@@ -24,7 +24,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "install": "JOBS=max node-pre-gyp install --fallback-to-build"
+    "install": "node-pre-gyp install --fallback-to-build",
+    "multi-install": "JOBS=max node-pre-gyp install --fallback-to-build"
   },
   "author": "Gustav Hansen",
   "license": "MIT",
