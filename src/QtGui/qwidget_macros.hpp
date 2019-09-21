@@ -83,6 +83,7 @@
         Napi::FunctionReference mouseReleaseCallback_;   \
                                                          \
         Napi::Env env;                                   \
+        bool closed = false;                             \
                                                          \
     private:                                             \
         void resizeEvent(QResizeEvent *e);               \
@@ -110,6 +111,7 @@
                                                                                                    \
     void className##Impl::closeEvent(QCloseEvent *e)                                               \
     {                                                                                              \
+        closed = true;                                                                             \
         if (closeCallback_.IsEmpty())                                                              \
             return;                                                                                \
                                                                                                    \

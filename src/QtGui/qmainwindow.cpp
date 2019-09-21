@@ -9,6 +9,7 @@ Napi::Object QMainWindowWrap::Init(Napi::Env env, Napi::Object exports)
     Napi::HandleScope scope(env);
     // clang-format off
     Napi::Function func = DefineClass(env, "QMainWindow", {
+        InstanceMethod("getClosed", &QMainWindowWrap::getClosed),
         QWIDGET_JS_DEFINES(QMainWindowWrap)
     });
     // clang-format on
@@ -40,6 +41,14 @@ QMainWindowWrap::QMainWindowWrap(const Napi::CallbackInfo &info) : Napi::ObjectW
 QMainWindowWrap::~QMainWindowWrap()
 {
     q_ = NULL;
+}
+
+Napi::Value QMainWindowWrap::getClosed(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    return Napi::Boolean::New(env, q_->closed);
 }
 
 // QWidget functions
