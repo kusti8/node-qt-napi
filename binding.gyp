@@ -54,7 +54,9 @@
                     {
                         "sources": [
                             "<!(moc src/QtGui/qapplication.hpp -o src/QtGui/qapplication.moc)",
+                            "<!(moc src/QtGui/qlineedit.hpp -o src/QtGui/qlineedit.moc)"
                             "src/QtGui/qapplication.cpp",
+                            "src/QtGui/qlineedit.cpp"
                         ],
                         "cflags": ["<!@(pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets)"],
                         "ldflags": [
