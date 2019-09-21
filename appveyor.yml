@@ -10,7 +10,7 @@ environment:
 install:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - ps: Install-Product node $env:nodejs_version x64
-  - npm install
+  - npm install --build-from-source
   - scripts/appveyor_build.bat
 
 build: OFF
