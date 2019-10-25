@@ -5,6 +5,8 @@
 #include "QtGui/qlabel.hpp"
 #include "QtGui/qlineedit.hpp"
 #include "QtGui/qpixmap.hpp"
+#include "QtGui/qcombobox.hpp"
+#include "QtGui/qplaintextedit.hpp"
 #include "misc.hpp"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports)
@@ -15,6 +17,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports)
     QLabelWrap::Init(env, exports);
     QLineEditWrap::Init(env, exports);
     QPixmapWrap::Init(env, exports);
+    QComboBoxWrap::Init(env, exports);
+    QPlainTextEditWrap::Init(env, exports);
     MiscInit(env, exports);
     return exports;
 }

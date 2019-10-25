@@ -10,6 +10,8 @@
                 "src/QtGui/qlabel.cpp",
                 "src/QtGui/qlineedit.cpp",
                 "src/QtGui/qpixmap.cpp",
+                "src/QtGui/qcombobox.cpp",
+                "src/QtGui/qplaintextedit.cpp",
                 "src/misc.cpp",
                 "src/utils/unwrapper.cpp",
             ],
@@ -54,9 +56,13 @@
                     {
                         "sources": [
                             "<!(moc src/QtGui/qapplication.hpp -o src/QtGui/qapplication.moc)",
-                            "<!(moc src/QtGui/qlineedit.hpp -o src/QtGui/qlineedit.moc)"
+                            "<!(moc src/QtGui/qlineedit.hpp -o src/QtGui/qlineedit.moc)",
+                            "<!(moc src/QtGui/qcombobox.hpp -o src/QtGui/qcombobox.moc)",
+                            "<!(moc src/QtGui/qplaintextedit.hpp -o src/QtGui/qplaintextedit.moc)",
                             "src/QtGui/qapplication.cpp",
-                            "src/QtGui/qlineedit.cpp"
+                            "src/QtGui/qlineedit.cpp",
+                            "src/QtGui/qcombobox.cpp",
+                            "src/QtGui/qplaintextedit.cpp",
                         ],
                         "cflags": ["<!@(pkg-config --cflags Qt5Core Qt5Gui Qt5Widgets)"],
                         "ldflags": [

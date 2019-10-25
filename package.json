@@ -16,6 +16,7 @@
     "package_name": "{module_name}-v{version}-{napi_build_version}-{platform}-{arch}.tar.gz"
   },
   "dependencies": {
+    "cross-env": "^6.0.3",
     "node-addon-api": "*",
     "node-pre-gyp": "^0.13.0"
   },
@@ -24,8 +25,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "install": "node-pre-gyp install --fallback-to-build",
-    "multi-install": "JOBS=max node-pre-gyp install --fallback-to-build"
+    "install": "cross-env JOBS=max node-pre-gyp install --fallback-to-build"
   },
   "author": "Gustav Hansen",
   "license": "MIT",

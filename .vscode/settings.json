@@ -42,6 +42,19 @@
         "optional": "cpp",
         "string_view": "cpp",
         "algorithm": "cpp",
-        "qstring": "cpp"
+        "qstring": "cpp",
+        "condition_variable": "cpp",
+        "deque": "cpp",
+        "future": "cpp",
+        "iostream": "cpp",
+        "mutex": "cpp",
+        "thread": "cpp",
+        "cinttypes": "cpp",
+        "iterator": "cpp",
+        "map": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "string": "cpp",
+        "variant": "cpp"
     }
 }

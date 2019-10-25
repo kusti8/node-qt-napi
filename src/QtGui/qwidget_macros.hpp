@@ -119,6 +119,7 @@
     }                                                                                              \
     void className##Impl::mousePressEvent(QMouseEvent *e)                                          \
     {                                                                                              \
+        className::mousePressEvent(e);                                                             \
         if (mousePressCallback_.IsEmpty())                                                         \
             return;                                                                                \
                                                                                                    \
@@ -126,6 +127,7 @@
     }                                                                                              \
     void className##Impl::mouseReleaseEvent(QMouseEvent *e)                                        \
     {                                                                                              \
+        className::mouseReleaseEvent(e);                                                           \
         if (mouseReleaseCallback_.IsEmpty())                                                       \
             return;                                                                                \
                                                                                                    \
