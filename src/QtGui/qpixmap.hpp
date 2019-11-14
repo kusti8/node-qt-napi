@@ -30,5 +30,6 @@ private:
   Napi::Value scaledTile(const Napi::CallbackInfo &info);
   Napi::Value height(const Napi::CallbackInfo &info);
   Napi::Value width(const Napi::CallbackInfo &info);
+  Napi::Value isNull(const Napi::CallbackInfo &info);
 };
 #endif

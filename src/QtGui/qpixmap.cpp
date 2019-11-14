@@ -14,7 +14,8 @@ Napi::Object QPixmapWrap::Init(Napi::Env env, Napi::Object exports)
         InstanceMethod("scaledToHeight", &QPixmapWrap::scaledToHeight),
         InstanceMethod("scaledTile", &QPixmapWrap::scaledTile),
         InstanceMethod("height", &QPixmapWrap::height),
-        InstanceMethod("width", &QPixmapWrap::width)
+        InstanceMethod("width", &QPixmapWrap::width),
+        InstanceMethod("isNull", &QPixmapWrap::isNull)
     });
     // clang-format on
 
@@ -134,4 +135,12 @@ Napi::Value QPixmapWrap::width(const Napi::CallbackInfo &info)
     Napi::HandleScope scope(env);
 
     return Napi::Number::New(env, q_->width());
+}
+
+Napi::Value QPixmapWrap::isNull(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    return Napi::Boolean::New(env, q_->isNull());
 }

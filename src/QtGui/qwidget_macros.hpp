@@ -121,7 +121,10 @@
     {                                                                                              \
         className::mousePressEvent(e);                                                             \
         if (mousePressCallback_.IsEmpty())                                                         \
+        {                                                                                          \
+            e->ignore();                                                                           \
             return;                                                                                \
+        }                                                                                          \
                                                                                                    \
         mousePressCallback_.Call({});                                                              \
     }                                                                                              \
@@ -129,7 +132,10 @@
     {                                                                                              \
         className::mouseReleaseEvent(e);                                                           \
         if (mouseReleaseCallback_.IsEmpty())                                                       \
+        {                                                                                          \
+            e->ignore();                                                                           \
             return;                                                                                \
+        }                                                                                          \
                                                                                                    \
         mouseReleaseCallback_.Call({});                                                            \
     }

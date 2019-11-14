@@ -23,6 +23,7 @@ public:
 
 public slots:
   void currentTextChangedSlot(const QString &text);
+  void activatedSlot(const QString &text);
 };
 
 class QComboBoxWrap : public Napi::ObjectWrap<QComboBoxWrap>
@@ -35,6 +36,7 @@ public:
 
   QComboBoxImpl *q_;
   Napi::FunctionReference currentTextChangedCallback_;
+  Napi::FunctionReference activatedCallback_;
 
 private:
   static Napi::FunctionReference constructor;
@@ -49,6 +51,7 @@ private:
   Napi::Value isEditable(const Napi::CallbackInfo &info);
   Napi::Value setEditable(const Napi::CallbackInfo &info);
   Napi::Value currentTextChangedEvent(const Napi::CallbackInfo &info);
+  Napi::Value activatedEvent(const Napi::CallbackInfo &info);
 
   SlotHandlerComboBox slotHandler;
 

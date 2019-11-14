@@ -10,6 +10,12 @@ void SlotHandlerComboBox::currentTextChangedSlot(const QString &text)
     element->currentTextChangedCallback_.Call({Napi::String::New(env, text.toStdString())});
 }
 
+void SlotHandlerComboBox::activatedSlot(const QString &text)
+{
+    Napi::Env env = element->activatedCallback_.Env();
+    element->activatedCallback_.Call({Napi::String::New(env, text.toStdString())});
+}
+
 Napi::Object QComboBoxWrap::Init(Napi::Env env, Napi::Object exports)
 {
     Napi::HandleScope scope(env);
@@ -25,6 +31,7 @@ Napi::Object QComboBoxWrap::Init(Napi::Env env, Napi::Object exports)
         InstanceMethod("isEditable", &QComboBoxWrap::isEditable),
         InstanceMethod("setEditable", &QComboBoxWrap::setEditable),
         InstanceMethod("currentTextChangedEvent", &QComboBoxWrap::currentTextChangedEvent),
+        InstanceMethod("activatedEvent", &QComboBoxWrap::activatedEvent),
         QWIDGET_JS_DEFINES(QComboBoxWrap)
     });
     // clang-format on
@@ -141,6 +148,17 @@ Napi::Value QComboBoxWrap::currentTextChangedEvent(const Napi::CallbackInfo &inf
 
     currentTextChangedCallback_ = Napi::Persistent(info[0].As<Napi::Function>());
     QObject::connect(q_, SIGNAL(currentTextChanged(const QString &)), &slotHandler, SLOT(currentTextChangedSlot(const QString &)));
+
+    return Napi::Value();
+}
+
+Napi::Value QComboBoxWrap::activatedEvent(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    activatedCallback_ = Napi::Persistent(info[0].As<Napi::Function>());
+    QObject::connect(q_, SIGNAL(activated(const QString &)), &slotHandler, SLOT(activatedSlot(const QString &)));
 
     return Napi::Value();
 }
