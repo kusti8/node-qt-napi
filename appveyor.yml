@@ -5,7 +5,6 @@ environment:
     - nodejs_version: "9.3"
     - nodejs_version: "11.0.0"
     - nodejs_version: "11.8.0"
-    - nodejs_version: "13.0.0"
 
 install:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
