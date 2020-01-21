@@ -33,7 +33,8 @@
     Napi::Value resizeEvent(const Napi::CallbackInfo &info);      \
     Napi::Value closeEvent(const Napi::CallbackInfo &info);       \
     Napi::Value mousePressEvent(const Napi::CallbackInfo &info);  \
-    Napi::Value mouseReleaseEvent(const Napi::CallbackInfo &info);
+    Napi::Value mouseReleaseEvent(const Napi::CallbackInfo &info); \
+    Napi::Value mouseMoveEvent(const Napi::CallbackInfo &info);
 
 ///////////////////////////////////////
 // Common QWidget Functions Defines for JS
@@ -67,7 +68,8 @@
         InstanceMethod("resizeEvent", &className::resizeEvent),           \
         InstanceMethod("closeEvent", &className::closeEvent),             \
         InstanceMethod("mousePressEvent", &className::mousePressEvent),   \
-        InstanceMethod("mouseReleaseEvent", &className::mouseReleaseEvent),
+        InstanceMethod("mouseReleaseEvent", &className::mouseReleaseEvent),\
+        InstanceMethod("mouseMoveEvent", &className::mouseMoveEvent),
 
 ///////////////////////////////////////
 // Subclassing for callbacks
@@ -81,6 +83,7 @@
         Napi::FunctionReference closeCallback_;          \
         Napi::FunctionReference mousePressCallback_;     \
         Napi::FunctionReference mouseReleaseCallback_;   \
+        Napi::FunctionReference mouseMoveCallback_;      \
                                                          \
         Napi::Env env;                                   \
         bool closed = false;                             \
@@ -90,6 +93,7 @@
         void closeEvent(QCloseEvent *e);                 \
         void mousePressEvent(QMouseEvent *e);            \
         void mouseReleaseEvent(QMouseEvent *e);          \
+        void mouseMoveEvent(QMouseEvent *e);             \
     };
 
 ///////////////////////////////////////
@@ -138,7 +142,19 @@
         }                                                                                          \
                                                                                                    \
         mouseReleaseCallback_.Call({});                                                            \
-    }
+    }                                                                                              \
+    void className##Impl::mouseMoveEvent(QMouseEvent *e)                                           \
+    {                                                                                              \
+        className::mouseMoveEvent(e);                                                              \
+        if (mouseMoveCallback_.IsEmpty())                                                          \
+        {                                                                                          \
+            e->ignore();                                                                           \
+            return;                                                                                \
+        }                                                                                          \
+        QPoint p = e->pos();                                                                       \
+        mouseMoveCallback_.Call({Napi::Number::New(env, p.x()),                                    \
+                                 Napi::Number::New(env, p.y())});                                  \
+    }                                                                                              
 
 ///////////////////////////////////////
 // Common QWidget Function Implementations
@@ -417,6 +433,15 @@
         Napi::HandleScope scope(env);                                                 \
                                                                                       \
         q_->mouseReleaseCallback_ = Napi::Persistent(info[0].As<Napi::Function>());   \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+    Napi::Value className::mouseMoveEvent(const Napi::CallbackInfo &info)             \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->mouseMoveCallback_ = Napi::Persistent(info[0].As<Napi::Function>());      \
                                                                                       \
         return Napi::Value();                                                         \
     }

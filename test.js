@@ -18,6 +18,8 @@ box.resizeEvent((width, height) => {
 });
 box.mousePressEvent(() => console.log("CLICKED!"));
 box.mouseReleaseEvent(() => console.log("UNCLICKED!"));
+box.setMouseTracking(true);
+box.mouseMoveEvent((x, y) => console.log(`MOUSE MOVED! x: ${x} y: ${y}`));
 const label = new qt.QLabel(box);
 console.log("Size hint", label.sizeHint());
 console.log("Height", label.height());
