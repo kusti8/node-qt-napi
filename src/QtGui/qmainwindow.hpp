@@ -22,6 +22,8 @@ private:
   static Napi::FunctionReference constructor;
 
   Napi::Value getClosed(const Napi::CallbackInfo &info);
+  Napi::Value showFullScreen(const Napi::CallbackInfo &info);
+  Napi::Value showNormal(const Napi::CallbackInfo &info);
 
   // QWidget Funcs
   QWIDGET_DEFS
