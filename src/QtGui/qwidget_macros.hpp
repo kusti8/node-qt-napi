@@ -4,70 +4,76 @@
 ///////////////////////////////////////
 // Common QWidget Functions
 ///////////////////////////////////////
-#define QWIDGET_DEFS                                              \
-    Napi::Value resize(const Napi::CallbackInfo &info);           \
-    Napi::Value show(const Napi::CallbackInfo &info);             \
-    Napi::Value close(const Napi::CallbackInfo &info);            \
-    Napi::Value size(const Napi::CallbackInfo &info);             \
-    Napi::Value width(const Napi::CallbackInfo &info);            \
-    Napi::Value height(const Napi::CallbackInfo &info);           \
-    Napi::Value objectName(const Napi::CallbackInfo &info);       \
-    Napi::Value setObjectName(const Napi::CallbackInfo &info);    \
-    Napi::Value parent(const Napi::CallbackInfo &info);           \
-    Napi::Value update(const Napi::CallbackInfo &info);           \
-    Napi::Value setMouseTracking(const Napi::CallbackInfo &info); \
-    Napi::Value hasMouseTracking(const Napi::CallbackInfo &info); \
-    Napi::Value setFocusPolicy(const Napi::CallbackInfo &info);   \
-    Napi::Value move(const Napi::CallbackInfo &info);             \
-    Napi::Value x(const Napi::CallbackInfo &info);                \
-    Napi::Value y(const Napi::CallbackInfo &info);                \
-    Napi::Value setStyleSheet(const Napi::CallbackInfo &info);    \
-    Napi::Value hide(const Napi::CallbackInfo &info);             \
-    Napi::Value del(const Napi::CallbackInfo &info);              \
-    Napi::Value setParent(const Napi::CallbackInfo &info);        \
-    Napi::Value adjustSize(const Napi::CallbackInfo &info);       \
-    Napi::Value sizeHint(const Napi::CallbackInfo &info);         \
-    Napi::Value minimumSizeHint(const Napi::CallbackInfo &info);  \
-    Napi::Value stackUnder(const Napi::CallbackInfo &info);       \
-                                                                  \
-    Napi::Value resizeEvent(const Napi::CallbackInfo &info);      \
-    Napi::Value closeEvent(const Napi::CallbackInfo &info);       \
-    Napi::Value mousePressEvent(const Napi::CallbackInfo &info);  \
-    Napi::Value mouseReleaseEvent(const Napi::CallbackInfo &info);
+#define QWIDGET_DEFS                                               \
+    Napi::Value resize(const Napi::CallbackInfo &info);            \
+    Napi::Value show(const Napi::CallbackInfo &info);              \
+    Napi::Value close(const Napi::CallbackInfo &info);             \
+    Napi::Value size(const Napi::CallbackInfo &info);              \
+    Napi::Value width(const Napi::CallbackInfo &info);             \
+    Napi::Value height(const Napi::CallbackInfo &info);            \
+    Napi::Value objectName(const Napi::CallbackInfo &info);        \
+    Napi::Value setObjectName(const Napi::CallbackInfo &info);     \
+    Napi::Value parent(const Napi::CallbackInfo &info);            \
+    Napi::Value update(const Napi::CallbackInfo &info);            \
+    Napi::Value setMouseTracking(const Napi::CallbackInfo &info);  \
+    Napi::Value hasMouseTracking(const Napi::CallbackInfo &info);  \
+    Napi::Value setFocusPolicy(const Napi::CallbackInfo &info);    \
+    Napi::Value move(const Napi::CallbackInfo &info);              \
+    Napi::Value x(const Napi::CallbackInfo &info);                 \
+    Napi::Value y(const Napi::CallbackInfo &info);                 \
+    Napi::Value setStyleSheet(const Napi::CallbackInfo &info);     \
+    Napi::Value hide(const Napi::CallbackInfo &info);              \
+    Napi::Value del(const Napi::CallbackInfo &info);               \
+    Napi::Value setParent(const Napi::CallbackInfo &info);         \
+    Napi::Value adjustSize(const Napi::CallbackInfo &info);        \
+    Napi::Value sizeHint(const Napi::CallbackInfo &info);          \
+    Napi::Value minimumSizeHint(const Napi::CallbackInfo &info);   \
+    Napi::Value stackUnder(const Napi::CallbackInfo &info);        \
+                                                                   \
+    Napi::Value resizeEvent(const Napi::CallbackInfo &info);       \
+    Napi::Value closeEvent(const Napi::CallbackInfo &info);        \
+    Napi::Value mousePressEvent(const Napi::CallbackInfo &info);   \
+    Napi::Value mouseReleaseEvent(const Napi::CallbackInfo &info); \
+    Napi::Value mouseMoveEvent(const Napi::CallbackInfo &info);    \
+    Napi::Value enterEvent(const Napi::CallbackInfo &info);        \
+    Napi::Value leaveEvent(const Napi::CallbackInfo &info);
 
 ///////////////////////////////////////
 // Common QWidget Functions Defines for JS
 ///////////////////////////////////////
-#define QWIDGET_JS_DEFINES(className)                                     \
-    InstanceMethod("resize", &className::resize),                         \
-        InstanceMethod("show", &className::show),                         \
-        InstanceMethod("close", &className::close),                       \
-        InstanceMethod("size", &className::size),                         \
-        InstanceMethod("width", &className::width),                       \
-        InstanceMethod("height", &className::height),                     \
-        InstanceMethod("objectName", &className::objectName),             \
-        InstanceMethod("setObjectName", &className::setObjectName),       \
-        InstanceMethod("parent", &className::parent),                     \
-        InstanceMethod("update", &className::update),                     \
-        InstanceMethod("setMouseTracking", &className::setMouseTracking), \
-        InstanceMethod("hasMouseTracking", &className::hasMouseTracking), \
-        InstanceMethod("setFocusPolicy", &className::setFocusPolicy),     \
-        InstanceMethod("move", &className::move),                         \
-        InstanceMethod("x", &className::x),                               \
-        InstanceMethod("y", &className::y),                               \
-        InstanceMethod("setStyleSheet", &className::setStyleSheet),       \
-        InstanceMethod("hide", &className::hide),                         \
-        InstanceMethod("del", &className::del),                           \
-        InstanceMethod("setParent", &className::setParent),               \
-        InstanceMethod("adjustSize", &className::adjustSize),             \
-        InstanceMethod("sizeHint", &className::sizeHint),                 \
-        InstanceMethod("minimumSizeHint", &className::minimumSizeHint),   \
-        InstanceMethod("stackUnder", &className::stackUnder),             \
-                                                                          \
-        InstanceMethod("resizeEvent", &className::resizeEvent),           \
-        InstanceMethod("closeEvent", &className::closeEvent),             \
-        InstanceMethod("mousePressEvent", &className::mousePressEvent),   \
-        InstanceMethod("mouseReleaseEvent", &className::mouseReleaseEvent),
+#define QWIDGET_JS_DEFINES(className)                                       \
+    InstanceMethod("resize", &className::resize),                           \
+        InstanceMethod("show", &className::show),                           \
+        InstanceMethod("close", &className::close),                         \
+        InstanceMethod("size", &className::size),                           \
+        InstanceMethod("width", &className::width),                         \
+        InstanceMethod("height", &className::height),                       \
+        InstanceMethod("objectName", &className::objectName),               \
+        InstanceMethod("setObjectName", &className::setObjectName),         \
+        InstanceMethod("parent", &className::parent),                       \
+        InstanceMethod("update", &className::update),                       \
+        InstanceMethod("setMouseTracking", &className::setMouseTracking),   \
+        InstanceMethod("hasMouseTracking", &className::hasMouseTracking),   \
+        InstanceMethod("setFocusPolicy", &className::setFocusPolicy),       \
+        InstanceMethod("move", &className::move),                           \
+        InstanceMethod("x", &className::x),                                 \
+        InstanceMethod("y", &className::y),                                 \
+        InstanceMethod("setStyleSheet", &className::setStyleSheet),         \
+        InstanceMethod("hide", &className::hide),                           \
+        InstanceMethod("del", &className::del),                             \
+        InstanceMethod("setParent", &className::setParent),                 \
+        InstanceMethod("adjustSize", &className::adjustSize),               \
+        InstanceMethod("sizeHint", &className::sizeHint),                   \
+        InstanceMethod("minimumSizeHint", &className::minimumSizeHint),     \
+        InstanceMethod("stackUnder", &className::stackUnder),               \
+                                                                            \
+        InstanceMethod("resizeEvent", &className::resizeEvent),             \
+        InstanceMethod("closeEvent", &className::closeEvent),               \
+        InstanceMethod("mousePressEvent", &className::mousePressEvent),     \
+        InstanceMethod("mouseReleaseEvent", &className::mouseReleaseEvent), \
+        InstanceMethod("mouseMoveEvent", &className::mouseMoveEvent),       \
+        InstanceMethod("enterEvent", &className::enterEvent),               \
+        InstanceMethod("leaveEvent", &className::leaveEvent),
 
 ///////////////////////////////////////
 // Subclassing for callbacks
@@ -81,6 +87,9 @@
         Napi::FunctionReference closeCallback_;          \
         Napi::FunctionReference mousePressCallback_;     \
         Napi::FunctionReference mouseReleaseCallback_;   \
+        Napi::FunctionReference mouseMoveCallback_;      \
+        Napi::FunctionReference enterEventCallback_;     \
+        Napi::FunctionReference leaveEventCallback_;     \
                                                          \
         Napi::Env env;                                   \
         bool closed = false;                             \
@@ -90,6 +99,9 @@
         void closeEvent(QCloseEvent *e);                 \
         void mousePressEvent(QMouseEvent *e);            \
         void mouseReleaseEvent(QMouseEvent *e);          \
+        void mouseMoveEvent(QMouseEvent *e);             \
+        void enterEvent(QEvent *e);                      \
+        void leaveEvent(QEvent *e);                      \
     };
 
 ///////////////////////////////////////
@@ -138,6 +150,42 @@
         }                                                                                          \
                                                                                                    \
         mouseReleaseCallback_.Call({});                                                            \
+    }                                                                                              \
+    void className##Impl::mouseMoveEvent(QMouseEvent *e)                                           \
+    {                                                                                              \
+        className::mouseMoveEvent(e);                                                              \
+        if (mouseMoveCallback_.IsEmpty())                                                          \
+        {                                                                                          \
+            e->ignore();                                                                           \
+            return;                                                                                \
+        }                                                                                          \
+                                                                                                   \
+        QPoint p = e->pos();                                                                       \
+                                                                                                   \
+        mouseMoveCallback_.Call({Napi::Number::New(env, p.x()),                                    \
+                                 Napi::Number::New(env, p.y())});                                  \
+    }                                                                                              \
+    void className##Impl::enterEvent(QEvent *e)                                                    \
+    {                                                                                              \
+        className::enterEvent(e);                                                                  \
+        if (enterEventCallback_.IsEmpty())                                                         \
+        {                                                                                          \
+            e->ignore();                                                                           \
+            return;                                                                                \
+        }                                                                                          \
+                                                                                                   \
+        enterEventCallback_.Call({});                                                              \
+    }                                                                                              \
+    void className##Impl::leaveEvent(QEvent *e)                                                    \
+    {                                                                                              \
+        className::leaveEvent(e);                                                                  \
+        if (leaveEventCallback_.IsEmpty())                                                         \
+        {                                                                                          \
+            e->ignore();                                                                           \
+            return;                                                                                \
+        }                                                                                          \
+                                                                                                   \
+        leaveEventCallback_.Call({});                                                              \
     }
 
 ///////////////////////////////////////
@@ -417,6 +465,36 @@
         Napi::HandleScope scope(env);                                                 \
                                                                                       \
         q_->mouseReleaseCallback_ = Napi::Persistent(info[0].As<Napi::Function>());   \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::mouseMoveEvent(const Napi::CallbackInfo &info)             \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->mouseMoveCallback_ = Napi::Persistent(info[0].As<Napi::Function>());      \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::enterEvent(const Napi::CallbackInfo &info)                 \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->enterEventCallback_ = Napi::Persistent(info[0].As<Napi::Function>());     \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::leaveEvent(const Napi::CallbackInfo &info)                 \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->leaveEventCallback_ = Napi::Persistent(info[0].As<Napi::Function>());     \
                                                                                       \
         return Napi::Value();                                                         \
     }
