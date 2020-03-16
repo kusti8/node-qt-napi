@@ -36,7 +36,8 @@
     Napi::Value mouseReleaseEvent(const Napi::CallbackInfo &info); \
     Napi::Value mouseMoveEvent(const Napi::CallbackInfo &info);    \
     Napi::Value enterEvent(const Napi::CallbackInfo &info);        \
-    Napi::Value leaveEvent(const Napi::CallbackInfo &info);
+    Napi::Value leaveEvent(const Napi::CallbackInfo &info);        \
+    Napi::Value moveEvent(const Napi::CallbackInfo &info);
 
 ///////////////////////////////////////
 // Common QWidget Functions Defines for JS
@@ -73,7 +74,8 @@
         InstanceMethod("mouseReleaseEvent", &className::mouseReleaseEvent), \
         InstanceMethod("mouseMoveEvent", &className::mouseMoveEvent),       \
         InstanceMethod("enterEvent", &className::enterEvent),               \
-        InstanceMethod("leaveEvent", &className::leaveEvent),
+        InstanceMethod("leaveEvent", &className::leaveEvent),               \
+        InstanceMethod("moveEvent", &className::moveEvent),
 
 ///////////////////////////////////////
 // Subclassing for callbacks
@@ -90,6 +92,7 @@
         Napi::FunctionReference mouseMoveCallback_;      \
         Napi::FunctionReference enterEventCallback_;     \
         Napi::FunctionReference leaveEventCallback_;     \
+        Napi::FunctionReference moveEventCallback_;      \
                                                          \
         Napi::Env env;                                   \
         bool closed = false;                             \
@@ -102,6 +105,7 @@
         void mouseMoveEvent(QMouseEvent *e);             \
         void enterEvent(QEvent *e);                      \
         void leaveEvent(QEvent *e);                      \
+        void moveEvent(QMoveEvent *e);                   \
     };
 
 ///////////////////////////////////////
@@ -186,6 +190,20 @@
         }                                                                                          \
                                                                                                    \
         leaveEventCallback_.Call({});                                                              \
+    }                                                                                              \
+    void className##Impl::moveEvent(QMoveEvent *e)                                                 \
+    {                                                                                              \
+        className::moveEvent(e);                                                                   \
+        if (moveEventCallback_.IsEmpty())                                                          \
+        {                                                                                          \
+            e->ignore();                                                                           \
+            return;                                                                                \
+        }                                                                                          \
+                                                                                                   \
+        QPoint p = e->pos();                                                                       \
+                                                                                                   \
+        moveEventCallback_.Call({Napi::Number::New(env, p.x()),                                    \
+                                 Napi::Number::New(env, p.y())});                                  \
     }
 
 ///////////////////////////////////////
@@ -495,6 +513,16 @@
         Napi::HandleScope scope(env);                                                 \
                                                                                       \
         q_->leaveEventCallback_ = Napi::Persistent(info[0].As<Napi::Function>());     \
+                                                                                      \
+        return Napi::Value();                                                         \
+    }                                                                                 \
+                                                                                      \
+    Napi::Value className::moveEvent(const Napi::CallbackInfo &info)                  \
+    {                                                                                 \
+        Napi::Env env = info.Env();                                                   \
+        Napi::HandleScope scope(env);                                                 \
+                                                                                      \
+        q_->moveEventCallback_ = Napi::Persistent(info[0].As<Napi::Function>());      \
                                                                                       \
         return Napi::Value();                                                         \
     }
