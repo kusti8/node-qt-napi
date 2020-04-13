@@ -6,7 +6,7 @@ Napi::Object QPixmapWrap::Init(Napi::Env env, Napi::Object exports)
 {
     Napi::HandleScope scope(env);
     // clang-format off
-    Napi::Function func = DefineClass(env, "QLabel", {
+    Napi::Function func = DefineClass(env, "QPixmap", {
         InstanceMethod("load", &QPixmapWrap::load),
         InstanceMethod("loadFromData", &QPixmapWrap::loadFromData),
         InstanceMethod("scaled", &QPixmapWrap::scaled),
