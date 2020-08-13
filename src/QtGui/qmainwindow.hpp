@@ -22,6 +22,7 @@ private:
   static Napi::FunctionReference constructor;
 
   Napi::Value getClosed(const Napi::CallbackInfo &info);
+  Napi::Value setWindowFlags(const Napi::CallbackInfo &info);
 
   // QWidget Funcs
   QWIDGET_DEFS

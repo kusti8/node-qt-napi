@@ -10,6 +10,7 @@ Napi::Object QMainWindowWrap::Init(Napi::Env env, Napi::Object exports)
     // clang-format off
     Napi::Function func = DefineClass(env, "QMainWindow", {
         InstanceMethod("getClosed", &QMainWindowWrap::getClosed),
+        InstanceMethod("setWindowFlags", &QMainWindowWrap::setWindowFlags),
         QWIDGET_JS_DEFINES(QMainWindowWrap)
     });
     // clang-format on
@@ -49,6 +50,22 @@ Napi::Value QMainWindowWrap::getClosed(const Napi::CallbackInfo &info)
     Napi::HandleScope scope(env);
 
     return Napi::Boolean::New(env, q_->closed);
+}
+
+Napi::Value QMainWindowWrap::setWindowFlags(const Napi::CallbackInfo &info)
+{
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+    Napi::Number flags;
+    if (info.Length() <= 0 || !info[0].IsNumber()) {
+        flags = Napi::Number::New(info.Env(), 0);
+    } else {
+        flags = info[0].As<Napi::Number>();
+    }
+
+    q_->setWindowFlags((Qt::WindowFlags)flags.Int32Value());
+
+    return Napi::Boolean::New(env, 1);
 }
 
 // QWidget functions
